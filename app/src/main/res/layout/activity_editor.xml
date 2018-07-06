@@ -60,11 +60,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!--&lt;!&ndash; Label &ndash;&gt;
-        <TextView
-            android:text="@string/category_measurement"
-            style="@style/CategoryStyle" />-->
-
         <!-- Input fields -->
         <RelativeLayout
             android:layout_width="0dp"
@@ -122,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Quantity" />
+            android:text="@string/quantity_label" />
 
         <Button
             android:id="@+id/qty_minus_button"
@@ -132,7 +127,7 @@
             android:layout_marginRight="8dp"
             android:layout_marginTop="0dp"
             android:padding="16dp"
-            android:text="-" />
+            android:text="@string/qty_minus_button" />
 
         <Button
             android:id="@+id/qty_plus_button"
@@ -141,7 +136,7 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:padding="16dp"
-            android:text="+" />
+            android:text="@string/qty_plus_button" />
 
 
     </LinearLayout>
@@ -157,7 +152,7 @@
             android:layout_marginTop="16dp"
             android:padding="16dp"
             android:layout_weight="1"
-            android:text="Delete Item" />
+            android:text="@string/delete_item_button" />
 
         <Button
             android:id="@+id/phone_to_supply_button"
@@ -166,7 +161,7 @@
             android:layout_marginTop="16dp"
             android:layout_weight="1"
             android:padding="16dp"
-            android:text="Phone to supply" />
+            android:text="@string/phone_to_supply_button" />
 
 
     </LinearLayout>

@@ -59,11 +59,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <!--&lt;!&ndash; Label &ndash;&gt;
-        <TextView
-            android:text="@string/category_measurement"
-            style="@style/CategoryStyle" />-->
-
         <!-- Input fields -->
         <RelativeLayout
             android:layout_width="0dp"
@@ -140,9 +135,6 @@
             android:layout_marginRight="8dp"
             android:padding="16dp"
             android:text="+" />
-
-
-
 
         <Button
             android:id="@+id/delete_item_button"

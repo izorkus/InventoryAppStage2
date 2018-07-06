@@ -88,10 +88,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSuppNameEditText = (EditText) findViewById(R.id.edit_item_supp_name);
         mSuppPhoneEditText = (EditText) findViewById(R.id.edit_supp_phone);
 
-        Button qty_plus = (Button) findViewById(R.id.qty_plus_button);
-        Button qty_minus = (Button) findViewById(R.id.qty_minus_button);
-        Button call_supp = (Button) findViewById(R.id.phone_to_supply_button);
-        Button dell_item = (Button) findViewById(R.id.delete_item_button);
+        Button qtyPlusButton = (Button) findViewById(R.id.qty_plus_button);
+        Button qtyMinusButton = (Button) findViewById(R.id.qty_minus_button);
+        Button callSuppButton = (Button) findViewById(R.id.phone_to_supply_button);
+        Button delItemButton = (Button) findViewById(R.id.delete_item_button);
 
 
         mNameEditText.setOnTouchListener(mTouchListener);
@@ -103,10 +103,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (currentItemUri == null) {
             setTitle(R.string.editor_activity_title_new_item);
             invalidateOptionsMenu();
-            qty_plus.setVisibility(View.INVISIBLE);
-            qty_minus.setVisibility(View.INVISIBLE);
-            call_supp.setVisibility(View.INVISIBLE);
-            dell_item.setVisibility(View.INVISIBLE);
+            qtyPlusButton.setVisibility(View.INVISIBLE);
+            qtyMinusButton.setVisibility(View.INVISIBLE);
+            callSuppButton.setVisibility(View.INVISIBLE);
+            delItemButton.setVisibility(View.INVISIBLE);
             TextView quantytiLabel = (TextView) findViewById(R.id.qty_label);
             quantytiLabel.setVisibility(View.INVISIBLE);
 
@@ -115,7 +115,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             setTitle(R.string.editor_activity_title_edit_item);
         }
 
-        call_supp.setOnClickListener(new View.OnClickListener() {
+        callSuppButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String phoneString = mSuppPhoneEditText.getText().toString().trim();
@@ -124,14 +124,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        dell_item.setOnClickListener(new View.OnClickListener() {
+        delItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 showDeleteConfirmationDialog();
             }
         });
 
-        qty_plus.setOnClickListener(new View.OnClickListener() {
+        qtyPlusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int quantityInt = Integer.parseInt(mQuantityEditText.getText().toString());
@@ -140,15 +140,15 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             }
         });
 
-        qty_minus.setOnClickListener(new View.OnClickListener() {
+        qtyMinusButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int quantityInt = Integer.parseInt(mQuantityEditText.getText().toString());
 
-                if (quantityInt > 0){
+                if (quantityInt > 0) {
                     quantityInt--;
                     mQuantityEditText.setText(Integer.toString(quantityInt));
-                }else if(quantityInt == 0){
+                } else if (quantityInt == 0) {
                     Toast.makeText(EditorActivity.this, "Quantity is already zero.", Toast.LENGTH_SHORT).show();
                 }
 
@@ -159,10 +159,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     }
 
-      private void editItem() {
+    private void editItem() {
 
-        // After click done in EditorActivit
-          // getText from edit field
+        // After click done in EditorActivity
+        // getText from edit field
         String nameString = mNameEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString();
@@ -173,23 +173,41 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         priceString = priceString.replace(",", ".");
 
+        if (nameString.isEmpty()) {
+            Toast.makeText(this, getString(R.string.name_required_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (quantityString.isEmpty()) {
+            Toast.makeText(this, getString(R.string.quantity_required_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (priceString.isEmpty()) {
+            Toast.makeText(this, getString(R.string.price_required_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (suppNameString.isEmpty()) {
+            Toast.makeText(this, getString(R.string.supp_name_required_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (suppPhoneString.isEmpty()) {
+            Toast.makeText(this, getString(R.string.supp_phone_required_message), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         float priceFloat = Float.parseFloat(priceString);
 
         priceFloat = priceFloat * 100;
         int priceInt = Math.round(priceFloat);
 
-        int quantityInt;
+        int quantityInt = Integer.parseInt(mQuantityEditText.getText().toString());
 
-        if (mQuantityEditText.getText().toString().isEmpty()) {
-            quantityInt = 0;
-            Toast.makeText(this, "Using 0 for quantity...", Toast.LENGTH_SHORT).show();
-        } else {
-            quantityInt = Integer.parseInt(mQuantityEditText.getText().toString());
-        }
 
         if (currentItemUri == null &&
-                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(quantityString))
-        {
+                TextUtils.isEmpty(nameString) && TextUtils.isEmpty(quantityString)) {
             return;
         }
 
@@ -228,6 +246,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
+        NavUtils.navigateUpFromSameTask(this);
     }
 
 
@@ -257,7 +276,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Respond to a click on the "Save" menu option
             case R.id.action_save:
                 editItem();
-                NavUtils.navigateUpFromSameTask(this);
                 return true;
             // Respond to a click on the "Delete" menu option
             case R.id.action_delete:
@@ -295,17 +313,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
-        String[] mProjection = {
-                ItemEntry._ID,
-                ItemEntry.COLUMN_ITEM_NAME,
-                ItemEntry.COLUMN_ITEM_PRICE,
-                ItemEntry.COLUMN_ITEM_QUANTITY,
-                ItemEntry.COLUMN_ITEM_SUPPLIER_NAME,
-                ItemEntry.COLUMN_ITEM_SUPPLIER_PHONE};
-
         return new CursorLoader(this,
                 currentItemUri,
-                mProjection,
+                null,
                 null,
                 null,
                 null);
@@ -449,13 +459,10 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 Toast.makeText(this, getString(R.string.editor_delete_item_successful),
                         Toast.LENGTH_SHORT).show();
                 finish();
-                //NavUtils.navigateUpFromSameTask(this);
             }
 
         }
     }
-
-
 
 
 }

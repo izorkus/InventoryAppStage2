@@ -50,7 +50,7 @@
     <!-- Subtitle text for the empty view that prompts the user to add a item [CHAR LIMIT=50] -->
     <string name="empty_view_subtitle_text">Get started by adding item.</string>
     <string name="editor_update_item_failed">Update item failed</string>
-    <string name="editor_update_item_successful">Update item successfull</string>
+    <string name="editor_update_item_successful">Update item successful</string>
 
     <!-- Dialog message when user is leaving editor but hasn't saved changes [CHAR LIMIT=NONE] -->
     <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
@@ -85,7 +85,20 @@
     <string name="sale_ok">Sale OK</string>
     <string name="sale_failed">Sale Failed</string>
     <string name="out_of_stock">Out of STOCK !!!</string>
-    <string name="qty_is_zero">Quantity is allready zero.</string>
+    <string name="qty_is_zero">Quantity is already zero.</string>
+    <string name="name_required_message">Name is required!</string>
+    <string name="quantity_required_message">Quantity is required!</string>
+    <string name="price_required_message">Price is required!</string>
+    <string name="supp_name_required_message">Supplier name is required!</string>
+    <string name="supp_phone_required_message">Supplier phone id required.</string>
+    <string name="row_not_saved_error_message">Error saving item.</string>
+    <string name="row_saved_successfully_message">Item successfully saved.</string>
+    <string name="Sell_itel_list_button">Sell</string>
+    <string name="quantity_label">Quantity</string>
+    <string name="qty_minus_button">-</string>
+    <string name="qty_plus_button">+</string>
+    <string name="delete_item_button">Delete Item</string>
+    <string name="phone_to_supply_button">Phone to supply</string>
 
 
 </resources>

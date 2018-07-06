@@ -27,7 +27,7 @@ import com.example.root.inventoryappstage2.data.ItemDbHelper;
 /**
  * Displays list of items that were entered and stored in the app.
  */
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private static final String TAG = "MyActivity";
     private static final int ITEM_LOADER = 0;
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     }
 
-    protected void onStart(){
+    protected void onStart() {
         super.onStart();
 
     }
@@ -93,6 +93,12 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         // Insert the new row, returning the primary key value of the new row
 
         Uri newUri = getContentResolver().insert(ItemEntry.CONTENT_URI, values);
+        if (newUri == null) {
+            Toast.makeText(this, getString(R.string.row_not_saved_error_message), Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, getString(R.string.row_saved_successfully_message), Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 

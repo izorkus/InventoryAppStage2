@@ -46,7 +46,7 @@ public class ItemCursorAdapter extends CursorAdapter{
         tvSummary1.setText(quantity);
         tvSummary2.setText(priceString);
 
-        // Handle sell button - 
+        // Handle sell button -
         // I use method similar to posted by Josifas A on Udacity Knowledge:
         // https://knowledge.udacity.com/questions/2466
 
